@@ -1,0 +1,35 @@
+#Architecture
+Client / Frontend
+       |
+       v
+Rails API Gateway (API-only)
+- Shopify OAuth
+- Input validation
+- Token management
+- Request forwarding
+       |
+       v
+Python AI Service (FastAPI)
+- Intent classification
+- ShopifyQL generation
+- Query validation
+- Insight explanation
+       |
+       v
+Shopify Admin API + ShopifyQL
+
+#psuedo code
+def create
+  validate_params!
+
+  token = ShopifyToken.fetch(params[:store_id])
+
+  response = PythonAIClient.ask(
+    store_id: params[:store_id],
+    question: params[:question],
+    access_token: token
+  )
+
+  render json: response
+end
+
